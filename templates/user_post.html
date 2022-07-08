@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% for user in user_posts %}
+        Posts of {{ user.author }}
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+{% for user_post in user_posts %}
+    <div class="">
+        <a href="{% url 'news-detail' slug=user_post.slug %}"><p>{{ user_post.title }}</p></a>
+    </div>
+    <p>{{ user_post.author }}</p>
+{% endfor %}
+
+{% endblock %}

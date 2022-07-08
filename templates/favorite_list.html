@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Favorites of {{ request.user.username }}
+{% endblock %}
+
+{% block content %}
+
+    {% for favorite in favorite_list %}
+        <p><a href="{{ favorite.get_absolute_url }}">{{ favorite.blog }}</a></p>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>{% block title %}
+    News
+    {% endblock %}</title>
+</head>
+<body>
+    {% block content %}
+        {% if user.is_authenticated %}
+            Hi!
+            <a href="{% url 'user-detail' slug=user.slug %}">{{ user.username }}</a>
+            <p><a href="{% url 'logout' %}">Log Out</a></p>
+        {% else %}
+            <p>You're not logged in!</p>
+            <a href="{% url 'login' %}">Log in</a>
+            <br>
+            <a href="{% url 'signup' %}">Sign up</a>
+            <br>
+        {% endif %}
+        <p>Breaking News</p>
+        {% for news in news_list %}
+            <nav>
+                <ul>
+                    <li><a href="{{ news.get_news_absolute_url }}">{{ news.title }}</a></li>
+                </ul>
+            </nav>
+        {% endfor %}
+        <form method="post">
+        {% csrf_token %}
+        {{ newsletter_form.as_p }}
+            <input type="submit" value="subscribe">
+        </form>
+    {% endblock %}
+</body>
+</html>

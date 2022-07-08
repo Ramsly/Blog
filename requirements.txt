@@ -1,0 +1,11 @@
+Django==4.0.6
+celery==5.2.3
+python-dotenv>=0.20.0
+django-autoslug>=1.9.8
+psycopg2>=2.9.3
+psycopg2-binary>=2.9.3
+Pillow>=9.0.1
+redis>=4.2.0
+flower>=1.0.0
+# django-elasticsearch-dsl>=7.2.2
+djangorestframework==3.13.1

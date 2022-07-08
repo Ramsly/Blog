@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ users_detail.slug }}
+{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'news-list-view' %}">Homepage</a></p>
+<p>Username: {{ users_detail.username }}</p>
+<p>Email: {{ users_detail.email }}</p>
+<p>Date joined: {{ users_detail.date_joined }}</p>
+<p>Last login: {{ users_detail.last_login }}</p>
+<p><a href="{% url 'favorite-user-list' %}">Favorites</a></p>
+    <p><a href="{% url 'create-post' %}">Create post</a></p>
+<p><a href="{% url 'user-post' %}">See my posts</a></p>
+{% endblock %}

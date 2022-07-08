@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ news_detail.title }}
+{% endblock %}
+
+{% block content %}
+<p><a href="{% url 'news-list-view' %}">Homepage</a></p>
+{% if user.is_authenticated %}
+<p>Hi <a href="{% url 'user-detail' slug=user.slug %}"> {{ user.username }} </a></p>
+{% else %}
+<p><a href="{% url 'signup' %}">Register</a> or <a href="{% url 'login' %}">login</a> for left comments</p>
+{% endif %}
+{{ news_detail.text }}
+
+    <form action="{% url 'favorite' slug=news_detail.slug %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Favorite">
+    </form>
+    
+    <p>Author: <a href="{{ news_detail.get_author_absolute_url }}">{{ news_detail.get_author_name }}</a></p>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <input type="submit" value="send">
+    </form>
+
+    <p><a href="{% url 'update-post' slug=news_detail.slug%}">Update post</a></p>
+    <p><a href="{% url 'delete-post' slug=news_detail.slug%}">Delete post</a></p>
+
+
+    {% for comment in comments %}
+        <p><a href="{{ news_detail.get_author_absolute_url }}">{{ comment.user.username }}</a></p>
+        <p>-----------------{{ comment.comment }}</p>
+    {% endfor %}
+
+{% endblock %}
+

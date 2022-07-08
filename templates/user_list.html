@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}
+All users
+{% endblock %}
+
+{% block content %}
+
+{% for user in users_list %}
+    <a href="{{ user.get_absolute_url }}">{{ user.username }}</a>
+{% endfor %}
+
+{% endblock %}
