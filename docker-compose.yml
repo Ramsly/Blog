@@ -27,17 +27,29 @@ services:
          - db
       env_file:
          - .env
-   celery:
+   celery_worker:
       restart: always
       build: .
-      command: bash -c "celery -A Blog worker -l INFO && celery -A Blog beat"
+      command: celery -A Blog worker -l INFO
       volumes:
          - .:/django
-      container_name: celery
+      container_name: celery_worker
       depends_on:
          - db
          - redis
          - web
+   celery_beat:
+      restart: always
+      build: .
+      command: celery -A Blog beat
+      volumes:
+         -  .:/django
+      container_name: celery_beat
+      depends_on:
+         - db
+         - redis
+         - web
+         - celery_worker
 
 volumes:
    postgres_data:
