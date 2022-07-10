@@ -14,7 +14,7 @@ services:
          - POSTGRES_PASSWORD=${DB_PASSWORD}
    web:
       build: .
-      command: python manage.py runserver 0.0.0.0:8000
+      command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
       volumes:
          - .:/Blog
       ports:
@@ -31,10 +31,10 @@ services:
       restart: always
       build:
          context: .
-      command: celery -A Blog beat -l INFO
+      command: bash -c "celery -A Blog worker -l INFO && celery -A Blog beat"
       volumes:
          - .:/django
-      container_name: celery_beat
+      container_name: celery
       depends_on:
          - db
          - redis
