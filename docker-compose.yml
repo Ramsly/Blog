@@ -29,8 +29,7 @@ services:
          - .env
    celery:
       restart: always
-      build:
-         context: .
+      build: .
       command: bash -c "celery -A Blog worker -l INFO && celery -A Blog beat"
       volumes:
          - .:/django
