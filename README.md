@@ -36,3 +36,8 @@ pip install -r requirements.txt
 ```
 docker-compose up --build
 ```
+
+Создайте супер юзера:
+```
+docker-compose exec web python3 manage.py createsuperuser
+```
